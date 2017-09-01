@@ -1,0 +1,78 @@
+Group members: Sydney Richards & Sophia Mitchellette
+
+tables: 
+	inventory
+		itemID int PRIMARY KEY AUTO_INCREMENT
+		unit text
+		quantity float
+		price_per_unit decimal(5,2)
+
+	transactions
+		transactionID int NOT NULL PRIMARY KEY AUTO_INCREMENT
+		employeeID int NOT NULL(reference from employee table)
+		transaction_typeID int NOT NULL (reference an id from transaction_type table)
+		total_before_tax float NOT NULL
+		total_after_tax float NOT NULL
+		payment_typeID int NOT NULL(reference from payment_type table)
+		card_number int 
+		cash decimal(5,2) 
+		timestamp datetime NOT NULL
+
+	employee
+		employeeID int NOT NULL PRIMARY KEY AUTO_INCREMENT
+		name text NOT NULL
+		permissionsID int NOT NULL (reference permission_type table)
+	
+	transaction_type
+		transaction_typeID int NOT NULL PRIMARY KEY AUTO_INCREMENT
+		description text NOT NULL
+		override bool NOT NULL
+
+	transaction_line
+		transaction_lineID int NOT NULL PRIMARY KEY AUTO_INCREMENT
+		transactionID int NOT NULL (reference transactions table)
+		itemID int NOT NULL (reference inventory table)
+		quantity float NOT NULL	
+
+	payment_type
+		payment_typeID int NOT NULL PRIMARY KEY AUTO_INCREMENT
+		description text NOT NULL	
+
+	permission_type
+		permission_typeID int NOT NULL PRIMARY KEY AUTO_INCREMENT
+		description text NOT NULL
+
+interactions: 
+	inventory: INSERT, UPDATE, DELETE
+		- New type of inventory item would be inserted.
+		- Modifications to inventory items, or purchases of more inventory items would 				mean items need to be updated.
+		- Items no longer in inventory (a line of products in no longer sold, for example) 				would need to be deleted.
+	transactions: INSERT
+		- Insert when new transactions are made.
+		- Do not update or delete in order to maintain record.
+	employee: INSERT, UPDATE, DELETE
+		- New employees inserted into the system.
+		- Former employees deleted.
+		- Update when aspects of employee relevant to table change.
+	transaction_type: INSERT, UPDATE, DELETE
+		- Insert new transaction types.
+		- Delete irrelevant transaction types.
+		- Update existing transaction types.
+	transaction_line: INSERT
+		- Insert when new transactions are made.
+		- Do not update or delete in order to maintain record.
+	payment_type: INSERT, UPDATE, DELETE
+		- Insert new payment types.
+		- Delete irrelevant payment types.
+		- Update existing payment types.
+	permission_type: INSERT, UPDATE, DELETE	
+		- Insert new permission types.
+		- Delete irrelevant permission types.
+		- Update existing permission types.
+
+
+
+
+
+
+
