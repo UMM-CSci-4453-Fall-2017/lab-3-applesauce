@@ -9,7 +9,31 @@ The combos/poor design table: poor_design
 The anomaly exercise table: coursesModificationAnomaly
 
 Table in 1st but not 2nd Normal Form: 1NFButNot2NF
+  
+  Assumptions Regarding Table:
+    - No one in the G apartment block has the same first name.
+    
+  > This table is in 1NF because the fields do not contain multiple values and none of the rows are duplicates.
+  > This table is NOT in 2NF because there is a partial dependency in the table. Apt is a non-prime attribute, and {Roommate, Chore} is a candidate key. Apt is functionally dependent on Roommate (Roommate -> Apt).
 
 Table in 2nd but not 3rd Normal Form: 2NFButNot3NF
 
+  Assumptions Regarding Table:
+    - There is only ever one CA for an apartment any given semester.
+    
+  > This table is in 2NF because the fields do not contain multiple values, none of the rows are duplicates, and there are no partial dependencies in the table. The candidate keys for the table are {Apt, Semester}, the non-prime attributes are CA and CAHometown. 
+  > This table is NOT in 3NF because {Apt, Semester} -> CA, CA -> CAHometown, and CA does NOT determine the {Apt, Semester}. Therefore, CAHometown is transitively dependent upon the candidate key, and the table is not in 3NF.
+
 Table in 3rd but not BNC Normal Form: 3NFButNotBNC
+
+  Assumptions Regarding Table:
+    - Two apartments can have the same rent, and/or lease start, and/or lease end.
+    - An apartment cannot have overlapping leases. (One lease per apartment at a time.)
+    
+  > This table is in 3NF because the fields do not contain multiple values, none of the rows are duplicates, there are no partial dependencies in the table, and every non-prime attribute is non-transitively dependent upon every super key.
+  Superkeys: {Apt, LeaseStart}, {Apt, LeaseEnd}, {Apt, LeaseStart, LeaseEnd}, {Apt, LeaseStart, LeaseEnd, Rent}
+  Dependencies: {Apt, LeaseStart} -> LeaseEnd, {Apt, LeaseStart} -> Rent, {Apt, LeaseEnd} -> LeaseStart, {Apt, LeaseEnd} -> Rent
+  For each of these X->Y, X is a superkey, therefore this table is in 3NF.
+  
+  > This table is NOT in BNC. Apt and Rent are prime attributes that are not superkeys.
+  Rent -> Apt, and so Rent -> Apt is not a trivial functional dependency, and Rent is not a superkey. The dependency Rent -> Apt does not meet the necessary conditions.
