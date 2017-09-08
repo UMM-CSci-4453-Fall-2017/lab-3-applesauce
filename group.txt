@@ -1,0 +1,15 @@
+Group: Applesauce
+
+Group Members: Sophia Mitchellette and Sydney Richards
+
+Database: mitc0417
+
+The combos/poor design table: poor_design
+
+The anomaly exercise table: coursesModificationAnomaly
+
+Table in 1st but not 2nd Normal Form: 1NFButNot2NF
+
+Table in 2nd but not 3rd Normal Form: 2NFButNot3NF
+
+Table in 3rd but not BNC Normal Form: 3NFButNotBNC
